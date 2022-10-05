@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Service and Broadcast Receiver</string>
+    <string name="button_text">Listen to music</string>
+</resources>
