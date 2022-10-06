@@ -7,12 +7,15 @@
     tools:context=".MainActivity">
 
     <ProgressBar
-        android:layout_width="wrap_content"
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="32dp"/>
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="48dp"
+        style="?android:attr/progressBarStyleHorizontal"/>
 
     <Button
         android:id="@+id/button"

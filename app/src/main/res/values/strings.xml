@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Service and Broadcast Receiver</string>
-    <string name="button_text">Listen to music</string>
+    <string name="button_text">Play</string>
+    <string name="channel_id">jkjk</string>
 </resources>
