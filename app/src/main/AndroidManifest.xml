@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.serviceandbroadcastreceiver">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,15 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceAndBroadcastReceiver"
         tools:targetApi="31">
+
         <receiver
             android:name=".PlayReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.serviceandbroadcastreceiver.action.PLAYING" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".PlayService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
 
         <activity
             android:name=".MainActivity"

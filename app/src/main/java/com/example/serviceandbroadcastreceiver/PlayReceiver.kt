@@ -3,11 +3,19 @@ package com.example.serviceandbroadcastreceiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 class PlayReceiver : BroadcastReceiver() {
+    private lateinit var callBack: CallBack
+
+    fun setCallBack(callBack: CallBack){
+        this.callBack = callBack
+    }
 
     override fun onReceive(context: Context, intent: Intent) {
-        // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
-        TODO("PlayReceiver.onReceive() is not implemented")
+        Log.d("ttt", "catch")
+        if (intent.action == "PLAYING") {
+            callBack.percent(intent.getIntExtra("playing time", 0))
+        }
     }
 }
