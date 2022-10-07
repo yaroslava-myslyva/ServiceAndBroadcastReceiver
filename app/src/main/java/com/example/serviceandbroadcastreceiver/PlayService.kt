@@ -14,7 +14,7 @@ class PlayService : Service() {
     private val binder = CustomBinder()
     private val intent = Intent()
     private val PLAYING_TIME = "playing time"
-    private lateinit var  mediaPlayer: MediaPlayer
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onBind(intent: Intent): IBinder = binder
 
@@ -23,24 +23,15 @@ class PlayService : Service() {
     }
 
     override fun onCreate() {
-        Log.d("ttt", "onCreate")
-        // нотіфікейшн перед роботою
         showNotification()
         play()
     }
 
-    // актівіті каже сервісу щось зробити. Діставати таким чином дані не треба
-    fun sendCurrentPercent(value:Int) {
+    fun sendCurrentPercent(value: Int) {
         Log.d("ttt", "PlayService sendCurrentPosition $value")
-        mediaPlayer.seekTo(mediaPlayer.duration/100*value)
+        mediaPlayer.seekTo(mediaPlayer.duration / 100 * value)
 
     }
-
-//    private fun doSomethingOnCreate() {
-//        // do something
-//        // ...
-//        stopSelf()
-//    }
 
     private fun play() {
         mediaPlayer = MediaPlayer.create(applicationContext, R.raw.sound)
@@ -76,7 +67,6 @@ class PlayService : Service() {
 
         val notificationManager = NotificationManagerCompat.from(this)
 
-        // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
@@ -90,7 +80,6 @@ class PlayService : Service() {
     }
 
     inner class CustomBinder : Binder() {
-        // Return this instance of LocalService so clients can call public methods
         fun getService(): PlayService = this@PlayService
     }
 }

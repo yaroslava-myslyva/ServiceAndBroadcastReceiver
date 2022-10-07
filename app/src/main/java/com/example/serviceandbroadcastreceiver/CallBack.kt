@@ -1,5 +1,5 @@
 package com.example.serviceandbroadcastreceiver
 
 interface CallBack {
-    fun percent(value :Int)
+    fun percent(value: Int)
 }
