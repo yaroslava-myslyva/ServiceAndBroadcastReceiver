@@ -13,6 +13,7 @@ class PlayReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+        Log.d("ttt", "catch")
         if (intent.action == "PLAYING") {
             callBack.percent(intent.getIntExtra("playing time", 0))
         }

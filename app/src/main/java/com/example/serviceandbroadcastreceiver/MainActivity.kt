@@ -19,6 +19,11 @@ class MainActivity : AppCompatActivity(), CallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // привязаться к сервису
+
+        // у тебя сикбар в сервисе прописан
+        // поэтому и не работает после перезапуска, не была установлена связь с сервисом
+        // попробуй в активити вынести функционал
 
         val button = findViewById<Button>(R.id.button)
         seekBar = findViewById<SeekBar>(R.id.seek_bar)
@@ -33,6 +38,17 @@ class MainActivity : AppCompatActivity(), CallBack {
                 bindService(intent, serviceConnection, Context.BIND_IMPORTANT)
             }
         }
+
+        seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    customService?.sendCurrentPercent(progress)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
     override fun onStop() {
@@ -44,16 +60,6 @@ class MainActivity : AppCompatActivity(), CallBack {
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             customService = (service as PlayService.CustomBinder).getService()
-            seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    if (fromUser) {
-                        customService?.sendCurrentPercent(progress)
-                    }
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-            })
         }
 
         override fun onServiceDisconnected(name: ComponentName) {
